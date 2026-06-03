@@ -55,4 +55,44 @@ public class UtenteDAO {
             }
         }
     }
+ // Metodo per verificare le credenziali (Login)
+    public UtenteBean doRetrieveByEmailAndPassword(String email, String password) throws java.sql.SQLException {
+        java.sql.Connection connection = null;
+        java.sql.PreparedStatement preparedStatement = null;
+        java.sql.ResultSet resultSet = null;
+        UtenteBean utente = null;
+
+        String selectSQL = "SELECT * FROM Utente WHERE email = ? AND password = ?";
+
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                utente = new UtenteBean();
+                utente.setId(resultSet.getInt("id"));
+                utente.setNome(resultSet.getString("nome"));
+                utente.setCognome(resultSet.getString("cognome"));
+                utente.setEmail(resultSet.getString("email"));
+                utente.setPassword(resultSet.getString("password"));
+                utente.setRuolo(resultSet.getString("ruolo"));
+            }
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } finally {
+                try {
+                    if (preparedStatement != null) preparedStatement.close();
+                } finally {
+                    if (connection != null) connection.close();
+                }
+            }
+        }
+        return utente;
+    }
 }
+
