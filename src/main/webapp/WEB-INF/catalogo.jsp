@@ -6,31 +6,53 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Premium Sneakers | Catalogo</title>
+    <title>UrbanStep | Catalogo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         /* Reset e Base */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
         body { background-color: #ffffff; color: #000000; -webkit-font-smoothing: antialiased; }
         
         /* Header e Navigazione Stile Minimal */
         header { text-align: center; padding: 40px 20px 20px; }
         h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase; margin-bottom: 20px; }
         
+       
         .navbar { display: flex; justify-content: center; gap: 30px; border-bottom: 1px solid #eeeeee; padding-bottom: 20px; margin-bottom: 40px; }
-        .navbar a { text-decoration: none; color: #555555; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
-        .navbar a:hover, .navbar a.active { color: #000000; font-weight: bold; }
+        .navbar a { text-decoration: none; color: #555555; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; display: inline-block; transition: color 0.3s ease, transform 0.3s ease; }
+        .navbar a:hover, .navbar a.active { color: #000000; font-weight: 700; transform: scale(1.15); }
 
         /* Griglia Prodotti */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 50px 20px; }
         
-        /* Singola Card Prodotto */
-        .product-card { text-align: center; display: flex; flex-direction: column; cursor: pointer; transition: opacity 0.3s; }
-        .product-card:hover { opacity: 0.8; }
+        /* Animazione Fade-In a cascata */
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
         
-        /* Placeholder per l'immagine della scarpa */
-        .image-placeholder { background-color: #f6f6f6; height: 280px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; color: #cccccc; font-size: 0.9rem; text-transform: uppercase; }
-       /* Gestione layout e transizioni per la galleria prodotti */
+        .product-card { 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            cursor: pointer; 
+            opacity: 0; 
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.2s; }
+        .product-card:nth-child(3) { animation-delay: 0.3s; }
+        .product-card:nth-child(4) { animation-delay: 0.4s; }
+        .product-card:nth-child(5) { animation-delay: 0.5s; }
+        .product-card:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Gestione layout e transizioni per la galleria prodotti */
         .image-wrapper { 
             height: 380px; 
             position: relative; 
@@ -44,7 +66,7 @@
         
         .product-img, .product-img-hover { 
             position: absolute; 
-            max-width: 90%; /* Lascia un piccolo margine interno per non far toccare le scarpe ai bordi */
+            max-width: 90%; 
             max-height: 90%; 
             object-fit: contain; 
             transition: opacity 0.4s ease, transform 0.5s ease; 
@@ -69,7 +91,7 @@
         .product-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
         .product-price { font-size: 1rem; font-weight: 400; margin-bottom: 15px; }
         
-        /* Bottone */
+        /* Bottone in stile streetwear */
         .btn-add { background-color: #000000; color: #ffffff; border: none; padding: 12px 0; width: 100%; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background-color 0.3s; margin-top: auto; }
         .btn-add:hover { background-color: #333333; }
         
@@ -79,7 +101,7 @@
 <body>
 
     <header>
-        <h1>Urban Steps</h1>
+        <h1>UrbanStep</h1>
         
         <nav class="navbar">
             <a href="catalogo?categoria=Tutte">Tutte</a>
@@ -89,7 +111,6 @@
             <a href="catalogo?categoria=Low">Low</a>
             <a href="catalogo?categoria=Retro">Retro</a>
         </nav>
-        
     </header>
 
     <div class="container">
