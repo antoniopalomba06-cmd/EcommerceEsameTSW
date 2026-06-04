@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,13 +22,22 @@ public class CatalogoServlet extends HttpServlet {
         
         ProdottoDAO prodottoDAO = new ProdottoDAO();
         
+        /* 1. Leggiamo la categoria scelta dall'utente cliccando sulla navbar */
+        String categoria = request.getParameter("categoria");
+        
         try {
-            // 1. Chiediamo al Model (DAO) la lista completa dei prodotti
-            List<ProdottoBean> prodotti = prodottoDAO.doRetrieveAll();
+            List<ProdottoBean> prodotti;
             
-           
+            /* 2. Logica di filtraggio: se c'è una categoria specifica (e non è "Tutte"), filtriamo */
+            if (categoria != null && !categoria.trim().isEmpty() && !categoria.equalsIgnoreCase("Tutte")) {
+                prodotti = prodottoDAO.doRetrieveByCategory(categoria);
+            } else {
+                /* Altrimenti carichiamo il catalogo completo */
+                prodotti = prodottoDAO.doRetrieveAll();
+            }
+            
+            /* 3. Passiamo la lista dei prodotti e la categoria attiva alla View */
             request.setAttribute("listaProdotti", prodotti);
-            
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/catalogo.jsp");
             dispatcher.forward(request, response);

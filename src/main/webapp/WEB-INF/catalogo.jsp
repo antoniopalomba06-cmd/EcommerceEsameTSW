@@ -24,7 +24,7 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
         
-        /* Singola Card Prodotto (Senza bordi netti, focus sull'immagine) */
+        /* Singola Card Prodotto */
         .product-card { text-align: center; display: flex; flex-direction: column; cursor: pointer; transition: opacity 0.3s; }
         .product-card:hover { opacity: 0.8; }
         
@@ -36,7 +36,7 @@
         .product-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
         .product-price { font-size: 1rem; font-weight: 400; margin-bottom: 15px; }
         
-        /* Bottone in stile streetwear */
+        /* Bottone */
         .btn-add { background-color: #000000; color: #ffffff; border: none; padding: 12px 0; width: 100%; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background-color 0.3s; margin-top: auto; }
         .btn-add:hover { background-color: #333333; }
         
@@ -47,14 +47,16 @@
 
     <header>
         <h1>Sneakers Drops</h1>
+        
         <nav class="navbar">
-            <a href="#" class="active">Tutte</a>
-            <a href="#">Limited</a>
-            <a href="#">High</a>
-            <a href="#">Mid</a>
-            <a href="#">Low</a>
-            <a href="#">Retro</a>
+            <a href="catalogo?categoria=Tutte">Tutte</a>
+            <a href="catalogo?categoria=Limited">Limited</a>
+            <a href="catalogo?categoria=High">High</a>
+            <a href="catalogo?categoria=Mid">Mid</a>
+            <a href="catalogo?categoria=Low">Low</a>
+            <a href="catalogo?categoria=Retro">Retro</a>
         </nav>
+        
     </header>
 
     <div class="container">
