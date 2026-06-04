@@ -1,43 +1,21 @@
--- 1. Creiamo il database e diciamo a MySQL di usarlo
-CREATE DATABASE IF NOT EXISTS ecommerce_db;
-USE ecommerce_db;
+-- -----------------------------------------------------
+-- Creazione tabella Prodotto
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS Prodotto;
 
--- 2. Tabella Utente (clienti e admin)
-CREATE TABLE Utente (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
-    cognome VARCHAR(50) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    ruolo VARCHAR(20) DEFAULT 'cliente' -- useremo 'cliente' o 'admin'
-);
-
--- 3. Tabella Prodotto 
 CREATE TABLE Prodotto (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    descrizione TEXT,
-    prezzo_attuale DECIMAL(10, 2) NOT NULL,
-    attivo BOOLEAN DEFAULT TRUE 
+    descrizione VARCHAR(255),
+    prezzo DECIMAL(10, 2) NOT NULL,
+    quantita INT NOT NULL
 );
 
--- 4. Tabella Ordine (la testata dello scontrino)
-CREATE TABLE Ordine (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_utente INT NOT NULL,
-    data_ordine DATETIME DEFAULT CURRENT_TIMESTAMP,
-    totale DECIMAL(10, 2) NOT NULL,
-    indirizzo_spedizione VARCHAR(255) NOT NULL,
-    FOREIGN KEY (id_utente) REFERENCES Utente(id)
-);
-
--- 5. Tabella DettaglioOrdine 
-CREATE TABLE DettaglioOrdine (
-    id_ordine INT NOT NULL,
-    id_prodotto INT NOT NULL,
-    quantita INT NOT NULL,
-    prezzo_acquistato DECIMAL(10, 2) NOT NULL, -- Questo salva il prezzo AL MOMENTO DELL'ACQUISTO
-    PRIMARY KEY (id_ordine, id_prodotto),
-    FOREIGN KEY (id_ordine) REFERENCES Ordine(id),
-    FOREIGN KEY (id_prodotto) REFERENCES Prodotto(id)
-);
+-- -----------------------------------------------------
+-- Popolamento iniziale del catalogo (Sneakers)
+-- -----------------------------------------------------
+INSERT INTO Prodotto (nome, descrizione, prezzo, quantita) VALUES 
+('Jordan 4 Military Black', 'Sneaker Air Jordan 4 retro, colorazione Military Black', 350.00, 10),
+('Jordan 4 Yellow Thunder', 'Sneaker Air Jordan 4 retro, colorazione Yellow Thunder', 280.00, 5),
+('Nocta Hot Step 2 White', 'Sneaker Nike x Nocta Hot Step 2, colorazione Total White', 220.00, 8),
+('Jordan 1 Mid', 'Sneaker Air Jordan Mid' , 120.00, 10);

@@ -27,10 +27,10 @@ public class CatalogoServlet extends HttpServlet {
             // 1. Chiediamo al Model (DAO) la lista completa dei prodotti
             List<ProdottoBean> prodotti = prodottoDAO.doRetrieveAll();
             
-            // 2. Mettiamo la lista nella "valigia" della request
+           
             request.setAttribute("listaProdotti", prodotti);
             
-            // 3. Passiamo la palla alla View (la pagina JSP in WEB-INF)
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/catalogo.jsp");
             dispatcher.forward(request, response);
             
