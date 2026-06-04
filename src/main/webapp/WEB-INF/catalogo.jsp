@@ -22,7 +22,7 @@
 
         /* Griglia Prodotti */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 50px 20px; }
         
         /* Singola Card Prodotto */
         .product-card { text-align: center; display: flex; flex-direction: column; cursor: pointer; transition: opacity 0.3s; }
@@ -30,6 +30,39 @@
         
         /* Placeholder per l'immagine della scarpa */
         .image-placeholder { background-color: #f6f6f6; height: 280px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; color: #cccccc; font-size: 0.9rem; text-transform: uppercase; }
+       /* Gestione layout e transizioni per la galleria prodotti */
+        .image-wrapper { 
+            height: 380px; 
+            position: relative; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 20px; 
+            overflow: hidden; 
+            background-color: #f6f6f6; 
+        }
+        
+        .product-img, .product-img-hover { 
+            position: absolute; 
+            max-width: 90%; /* Lascia un piccolo margine interno per non far toccare le scarpe ai bordi */
+            max-height: 90%; 
+            object-fit: contain; 
+            transition: opacity 0.4s ease, transform 0.5s ease; 
+        }
+        
+        .product-img-hover {
+            opacity: 0; 
+        }
+        
+        /* Animazione di swap dell'immagine on-hover */
+        .product-card:hover .product-img { 
+            opacity: 0; 
+        }
+        
+        .product-card:hover .product-img-hover { 
+            opacity: 1; 
+            transform: scale(1.05); 
+        }
         
         /* Testi del prodotto */
         .product-brand { font-size: 0.8rem; color: #888888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
@@ -46,7 +79,7 @@
 <body>
 
     <header>
-        <h1>Sneakers Drops</h1>
+        <h1>Urban Steps</h1>
         
         <nav class="navbar">
             <a href="catalogo?categoria=Tutte">Tutte</a>
@@ -72,7 +105,10 @@
                         ProdottoBean p = (ProdottoBean) it.next();
             %>
                         <div class="product-card">
-                            <div class="image-placeholder">Immagine <%= p.getNome() %></div>
+                            <div class="image-wrapper">
+                                <img src="img/<%= p.getId() %>.jpg" alt="<%= p.getNome() %>" class="product-img">
+                                <img src="img/<%= p.getId() %>_alt.jpg" alt="<%= p.getNome() %> - Dettaglio" class="product-img-hover">
+                            </div>
                             
                             <div class="product-brand">Nike</div>
                             <div class="product-title"><%= p.getNome() %></div>
