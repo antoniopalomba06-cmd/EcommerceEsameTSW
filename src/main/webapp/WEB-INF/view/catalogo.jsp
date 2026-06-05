@@ -2,15 +2,25 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="model.ProdottoBean" %>
+<%
+    int cartCount = 0;
+    model.Carrello currentCart = (model.Carrello) session.getAttribute("carrello");
+    if (currentCart != null) {
+        for (model.CarrelloItem i : currentCart.getItems()) {
+            cartCount += i.getQuantita();
+        }
+    }
+%>
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>UrbanStep | Catalogo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
+    <script src="${pageContext.request.contextPath}/scripts/main.js" defer></script>
 </head>
 <body>
     <header>
@@ -22,7 +32,7 @@
             <a href="catalogo?categoria=Mid">Mid</a>
             <a href="catalogo?categoria=Low">Low</a>
             <a href="catalogo?categoria=Retro">Retro</a>
-            <a href="carrello" style="font-weight: 700;">🛒 Carrello</a>
+            <a href="carrello" style="font-weight: 700;">🛒 Carrello <span id="cart-badge" style="background-color: #e74c3c; color: white; border-radius: 50%; padding: 2px 8px; font-size: 0.75rem; margin-left: 5px;"><%= cartCount %></span></a>
         </nav>
     </header>
 
@@ -37,17 +47,13 @@
             %>
                         <div class="product-card">
                             <div class="image-wrapper">
-                                <img src="images/<%= p.getId() %>.jpg" alt="<%= p.getNome() %>" class="product-img">
-                                <img src="images/<%= p.getId() %>_alt.jpg" alt="<%= p.getNome() %> - Dettaglio" class="product-img-hover">
+                                <img src="${pageContext.request.contextPath}/images/<%= p.getId() %>.jpg" alt="<%= p.getNome() %>" class="product-img">
+                                <img src="${pageContext.request.contextPath}/images/<%= p.getId() %>_alt.jpg" alt="<%= p.getNome() %> - Dettaglio" class="product-img-hover">
                             </div>
                             <div class="product-brand">Nike</div>
                             <div class="product-title"><%= p.getNome() %></div>
                             <div class="product-price">€ <%= String.format("%.2f", p.getPrezzo()) %></div>
-                            <form action="carrello" method="get">
-                                <input type="hidden" name="action" value="aggiungi">
-                                <input type="hidden" name="id" value="<%= p.getId() %>">
-                                <button type="submit" class="btn-add">Aggiungi al carrello</button>
-                            </form>
+                            <button class="btn-add" onclick="aggiungiAlCarrello(<%= p.getId() %>, this)">Aggiungi al carrello</button>
                         </div>
             <%
                     }

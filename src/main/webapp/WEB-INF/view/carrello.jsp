@@ -49,7 +49,16 @@
                         <tr>
                             <td><img src="${pageContext.request.contextPath}/images/<%= item.getProdotto().getId() %>.jpg" class="cart-img" alt="Scarpa"></td>
                             <td style="font-weight: 600;"><%= item.getProdotto().getNome() %></td>
-                            <td><%= item.getQuantita() %></td>
+                            <td>
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                    <form action="carrello" method="post" style="margin:0;">
+                                        <input type="hidden" name="action" value="diminuisci">
+                                        <input type="hidden" name="id" value="<%= item.getProdotto().getId() %>">
+                                        <button type="submit" style="background:#f0f0f0; border:1px solid #ccc; width:25px; height:25px; cursor:pointer; font-weight:bold; border-radius:3px;">-</button>
+                                    </form>
+                                    <span style="font-weight:600; min-width:20px; text-align:center;"><%= item.getQuantita() %></span>
+                                </div>
+                            </td>
                             <td>€ <%= String.format("%.2f", item.getProdotto().getPrezzo()) %></td>
                             <td>€ <%= String.format("%.2f", item.getPrezzoTotale()) %></td>
                             <td>

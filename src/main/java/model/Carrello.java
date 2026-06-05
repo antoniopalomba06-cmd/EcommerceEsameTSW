@@ -11,7 +11,6 @@ public class Carrello {
         items = new ArrayList<>();
     }
 
-    // Aggiunge un prodotto o aumenta la quantità se è già presente
     public void aggiungiProdotto(ProdottoBean prodotto) {
         for (CarrelloItem item : items) {
             if (item.getProdotto().getId() == prodotto.getId()) {
@@ -22,7 +21,20 @@ public class Carrello {
         items.add(new CarrelloItem(prodotto, 1));
     }
 
-    // Rimuove un prodotto specifico dal carrello
+    public void diminuisciProdotto(int idProdotto) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getProdotto().getId() == idProdotto) {
+                int nuovaQuantita = items.get(i).getQuantita() - 1;
+                if (nuovaQuantita > 0) {
+                    items.get(i).setQuantita(nuovaQuantita);
+                } else {
+                    items.remove(i);
+                }
+                return;
+            }
+        }
+    }
+
     public void rimuoviProdotto(int idProdotto) {
         items.removeIf(item -> item.getProdotto().getId() == idProdotto);
     }
@@ -31,7 +43,6 @@ public class Carrello {
         return items;
     }
 
-    // Calcola il costo totale dell'intero carrello
     public double getPrezzoTotale() {
         double totale = 0;
         for (CarrelloItem item : items) {
