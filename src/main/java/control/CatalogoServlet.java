@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import model.ProdottoBean;
 import model.ProdottoDAO;
 
@@ -39,8 +37,7 @@ public class CatalogoServlet extends HttpServlet {
             /* 3. Passiamo la lista dei prodotti e la categoria attiva alla View */
             request.setAttribute("listaProdotti", prodotti);
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/catalogo.jsp");
-            dispatcher.forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/catalogo.jsp").forward(request, response);
             
         } catch (SQLException e) {
             System.out.println("Errore nel recupero del catalogo: " + e.getMessage());

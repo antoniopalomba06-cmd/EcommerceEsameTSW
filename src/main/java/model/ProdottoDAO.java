@@ -78,4 +78,28 @@ public class ProdottoDAO {
         }
         return prodotti;
     }
+    /* Metodo per recuperare un SINGOLO prodotto tramite il suo ID (fondamentale per il carrello) */
+    public ProdottoBean doRetrieveByKey(int id) throws SQLException {
+        ProdottoBean bean = null;
+        String query = "SELECT * FROM Prodotto WHERE id = ?";
+        
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setInt(1, id);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bean = new ProdottoBean();
+                    bean.setId(rs.getInt("id"));
+                    bean.setNome(rs.getString("nome"));
+                    bean.setDescrizione(rs.getString("descrizione"));
+                    bean.setPrezzo(rs.getDouble("prezzo"));
+                    bean.setQuantita(rs.getInt("quantita"));
+                    bean.setCategoria(rs.getString("categoria"));
+                }
+            }
+        }
+        return bean;
+    }
 }
