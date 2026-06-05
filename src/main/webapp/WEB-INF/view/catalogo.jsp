@@ -24,7 +24,7 @@
 </head>
 <body>
     <header>
-        <h1>UrbanStep</h1>
+        <h1><a href="${pageContext.request.contextPath}/home" style="color: inherit; text-decoration: none;">UrbanStep</a></h1>
         <nav class="navbar">
             <a href="catalogo?categoria=Tutte">Tutte</a>
             <a href="catalogo?categoria=Limited">Limited</a>
