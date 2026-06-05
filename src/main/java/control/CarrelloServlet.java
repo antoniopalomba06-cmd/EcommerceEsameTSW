@@ -53,6 +53,19 @@ public class CarrelloServlet extends HttpServlet {
                 response.sendRedirect("catalogo?categoria=Tutte");
                 return;
             }
+         
+            else if (action.equals("rimuovi")) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                carrello.rimuoviProdotto(id);
+                response.sendRedirect("carrello");
+                return;
+            }
+            
+            else if (action.equals("svuota")) {
+                session.removeAttribute("carrello"); 
+                response.sendRedirect("carrello");
+                return;
+            }
         }
 
         // Se vuole solo "Vedere" il carrello, lo mandiamo alla pagina carrello.jsp (che creeremo dopo)

@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
 </head>
 <body>
     <header>
@@ -23,10 +23,8 @@
         <h2 class="cart-title">Il tuo Carrello</h2>
 
         <%
-            /* Recuperiamo il carrello dallo "zaino" della sessione */
             Carrello carrello = (Carrello) session.getAttribute("carrello");
             
-            /* Controlliamo se è vuoto o non esiste ancora */
             if (carrello == null || carrello.getItems().isEmpty()) {
         %>
             <div class="empty-msg">Il tuo carrello attualmente è vuoto.</div>
@@ -41,31 +39,45 @@
                         <th>Quantità</th>
                         <th>Prezzo</th>
                         <th>Totale</th>
+                        <th>Azione</th>
                     </tr>
                 </thead>
                 <tbody>
                     <%
-                        /* Cicliamo su tutti i prodotti aggiunti e stampiamo le righe */
                         for (CarrelloItem item : carrello.getItems()) {
                     %>
                         <tr>
-                            <td><img src="images/<%= item.getProdotto().getId() %>.jpg" class="cart-img" alt="Scarpa"></td>
+                            <td><img src="${pageContext.request.contextPath}/images/<%= item.getProdotto().getId() %>.jpg" class="cart-img" alt="Scarpa"></td>
                             <td style="font-weight: 600;"><%= item.getProdotto().getNome() %></td>
                             <td><%= item.getQuantita() %></td>
                             <td>€ <%= String.format("%.2f", item.getProdotto().getPrezzo()) %></td>
                             <td>€ <%= String.format("%.2f", item.getPrezzoTotale()) %></td>
+                            <td>
+                                <form action="carrello" method="post" style="margin:0;">
+                                    <input type="hidden" name="action" value="rimuovi">
+                                    <input type="hidden" name="id" value="<%= item.getProdotto().getId() %>">
+                                    <button type="submit" style="background:none; border:none; color:red; cursor:pointer; font-weight:bold; font-size:1.2rem;">X</button>
+                                </form>
+                            </td>
                         </tr>
                     <%
                         }
                     %>
                     <tr class="cart-total-row">
                         <td colspan="4" style="text-align: right; padding-right: 20px;">TOTALE COMPLESSIVO:</td>
-                        <td>€ <%= String.format("%.2f", carrello.getPrezzoTotale()) %></td>
+                        <td colspan="2">€ <%= String.format("%.2f", carrello.getPrezzoTotale()) %></td>
                     </tr>
                 </tbody>
             </table>
 
-            <button class="btn-checkout">Procedi al Checkout</button>
+            <div style="display: flex; justify-content: flex-end; gap: 20px; margin-top: 30px;">
+                <form action="carrello" method="post">
+                    <input type="hidden" name="action" value="svuota">
+                    <button type="submit" style="background-color: transparent; color: #000; border: 1px solid #000; padding: 15px 30px; text-transform: uppercase; cursor: pointer; font-weight: 600; transition: background-color 0.3s;">Svuota Carrello</button>
+                </form>
+                
+                <button class="btn-checkout" style="margin-top: 0;">Procedi al Checkout</button>
+            </div>
         <%
             }
         %>
