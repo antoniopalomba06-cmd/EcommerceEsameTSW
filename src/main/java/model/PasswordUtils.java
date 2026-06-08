@@ -7,7 +7,7 @@ public class PasswordUtils {
 
     public static String hashPassword(String password) {
         try {
-            // Usiamo SHA-256, lo standard base richiesto all'università
+            
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(password.getBytes());
             StringBuilder hexString = new StringBuilder();

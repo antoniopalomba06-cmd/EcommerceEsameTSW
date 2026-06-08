@@ -24,11 +24,44 @@ h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; text-transform: 
 .product-card:nth-child(5) { animation-delay: 0.5s; }
 .product-card:nth-child(6) { animation-delay: 0.6s; }
 
-.image-wrapper { height: 380px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; background-color: #f6f6f6; }
-.product-img, .product-img-hover { position: absolute; max-width: 90%; max-height: 90%; object-fit: contain; transition: opacity 0.4s ease, transform 0.5s ease; }
-.product-img-hover { opacity: 0; }
-.product-card:hover .product-img { opacity: 0; }
-.product-card:hover .product-img-hover { opacity: 1; transform: scale(1.05); }
+.image-wrapper {
+    position: relative;
+    background-color: transparent;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.product-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.product-img-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.product-card:hover .product-img { 
+    opacity: 0; 
+}
+
+.product-card:hover .product-img-hover { 
+    opacity: 1; 
+    transform: scale(1.05); 
+}
 
 .product-brand { font-size: 0.8rem; color: #888888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
 .product-title { font-size: 1rem; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
@@ -142,7 +175,7 @@ h2.cart-title { font-size: 1.8rem; text-transform: uppercase; margin-bottom: 30p
     flex: 1 1 50%;
     background-image: url('https://images.unsplash.com/photo-1552346154-21d32810baa3?q=80&w=2000&auto=format&fit=crop');
     background-size: cover;
-    background-positions: center;
+    background-position: center;
     background-attachment: fixed;
     min-height: 400px;
 }
@@ -185,4 +218,90 @@ h2.cart-title { font-size: 1.8rem; text-transform: uppercase; margin-bottom: 30p
 
 .btn-light:hover {
     background-color: #ddd;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.login-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.btn-login {
+    background-color: #000;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: #333;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.register-link a {
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
 }
