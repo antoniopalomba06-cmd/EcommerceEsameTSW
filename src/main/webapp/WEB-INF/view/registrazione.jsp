@@ -4,7 +4,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>UrbanStep | Login</title>
+    <title>UrbanStep | Registrazione</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,13 +20,19 @@
     </header>
 
     <div class="login-container">
-        <h2 class="login-title">Accedi</h2>
+        <h2 class="login-title">Crea Account</h2>
         <c:if test="${not empty errore}">
-            <div class="error-banner">
-                ${errore}
+    <p style="color: red; text-align: center; font-weight: bold;">${errore}</p>
+</c:if>
+        <form action="${pageContext.request.contextPath}/registrazione" method="POST" class="login-form">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" name="nome" required>
             </div>
-        </c:if>
-        <form action="${pageContext.request.contextPath}/login" method="POST" class="login-form">
+            <div class="form-group">
+                <label for="cognome">Cognome</label>
+                <input type="text" id="cognome" name="cognome" required>
+            </div>
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
@@ -35,8 +41,8 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn-login">Entra</button>
-            <p class="register-link">Non hai un account? <a href="${pageContext.request.contextPath}/registrazione">Registrati qui</a></p>
+            <button type="submit" class="btn-login">Registrati</button>
+            <p class="register-link">Hai già un account? <a href="${pageContext.request.contextPath}/login">Accedi</a></p>
         </form>
     </div>
 </body>

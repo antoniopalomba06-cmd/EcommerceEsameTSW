@@ -14,10 +14,25 @@
 <body>
     <header>
         <h1><a href="${pageContext.request.contextPath}/home" style="color: inherit; text-decoration: none;">UrbanStep</a></h1>
-        <nav class="navbar">
-            <a href="catalogo?categoria=Tutte">Catalogo</a>
-            <a href="carrello" style="font-weight: 700;">🛒 Carrello <span id="cart-badge" style="background-color: #e74c3c; color: white; border-radius: 50%; padding: 2px 8px; font-size: 0.75rem; margin-left: 5px;">${empty sessionScope.carrello ? '0' : sessionScope.carrello.items.size()}</span></a>
-        </nav>
+<nav class="navbar">
+    <a href="${pageContext.request.contextPath}/catalogo?categoria=Tutte">Catalogo</a>
+    <a href="${pageContext.request.contextPath}/carrello" style="font-weight: 700;">🛒 Carrello</a>
+
+    <c:choose>
+        <c:when test="${not empty sessionScope.utente}">
+            <span style="color: #555; font-size: 0.9rem; text-transform: uppercase; font-weight: 600; align-self: center;">
+                👤 Ciao, ${sessionScope.utente.nome}!
+            </span>
+            <c:if test="${sessionScope.utente.ruolo == 'admin'}">
+                <a href="${pageContext.request.contextPath}/admin" style="color: #d32f2f; font-weight: 700;">⚙️ Admin</a>
+            </c:if>
+            <a href="${pageContext.request.contextPath}/logout">Esci</a>
+        </c:when>
+        <c:otherwise>
+            <a href="${pageContext.request.contextPath}/login" class="btn-nav-login">Login / Registrati</a>
+        </c:otherwise>
+    </c:choose>
+</nav>
     </header>
 
     <section class="parallax-hero">
