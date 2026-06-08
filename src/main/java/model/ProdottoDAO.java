@@ -102,4 +102,31 @@ public class ProdottoDAO {
         }
         return bean;
     }
+    public void doSave(ProdottoBean prodotto) throws SQLException {
+        String query = "INSERT INTO Prodotto (nome, descrizione, prezzo, quantita, categoria) VALUES (?, ?, ?, ?, ?)";
+        
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setString(1, prodotto.getNome());
+            ps.setString(2, prodotto.getDescrizione());
+            ps.setDouble(3, prodotto.getPrezzo());
+            ps.setInt(4, prodotto.getQuantita());
+            ps.setString(5, prodotto.getCategoria());
+            
+            ps.executeUpdate();
+        }
+    }
+
+    public void doDelete(int id) throws SQLException {
+        String query = "DELETE FROM Prodotto WHERE id = ?";
+        
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
 }
+
