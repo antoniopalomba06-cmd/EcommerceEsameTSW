@@ -10,10 +10,8 @@ import javax.sql.DataSource;
 
 public class UtenteDAO {
 
-    // Questa variabile conterrà il pool di connessioni
     private static DataSource ds;
 
-    // Blocco statico che si avvia subito per pescare il file context.xml
     static {
         try {
             Context initCtx = new InitialContext();
@@ -24,38 +22,33 @@ public class UtenteDAO {
         }
     }
 
-    // Metodo per salvare un nuovo utente nel Database
     public synchronized void doSave(UtenteBean utente) throws SQLException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         
-        // La query SQL con i punti interrogativi per evitare gli attacchi SQL Injection (il prof apprezzerà)
         String insertSQL = "INSERT INTO Utente (nome, cognome, email, password, ruolo) VALUES (?, ?, ?, ?, ?)";
 
         try {
-            // Peschiamo una connessione libera dal pool
             connection = ds.getConnection();
             preparedStatement = connection.prepareStatement(insertSQL);
             
-            // Riempiamo i punti interrogativi coi dati del Bean
             preparedStatement.setString(1, utente.getNome());
             preparedStatement.setString(2, utente.getCognome());
             preparedStatement.setString(3, utente.getEmail());
             preparedStatement.setString(4, PasswordUtils.hashPassword(utente.getPassword()));
             preparedStatement.setString(5, utente.getRuolo());
 
-            // Eseguiamo il salvataggio
             preparedStatement.executeUpdate();
             
         } finally {
             try {
                 if (preparedStatement != null) preparedStatement.close();
             } finally {
-                if (connection != null) connection.close(); // Questo non distrugge la connessione, la restituisce al pool
+                if (connection != null) connection.close();
             }
         }
     }
- // Metodo per verificare le credenziali (Login)
+
     public UtenteBean doRetrieveByEmailAndPassword(String email, String password) throws java.sql.SQLException {
         java.sql.Connection connection = null;
         java.sql.PreparedStatement preparedStatement = null;
@@ -95,4 +88,3 @@ public class UtenteDAO {
         return utente;
     }
 }
-

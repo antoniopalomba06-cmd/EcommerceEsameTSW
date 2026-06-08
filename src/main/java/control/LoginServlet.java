@@ -1,11 +1,17 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import model.UtenteBean;
+import model.UtenteDAO;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -16,6 +22,25 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+
+        UtenteDAO utenteDAO = new UtenteDAO();
+
+        try {
+            UtenteBean utente = utenteDAO.doRetrieveByEmailAndPassword(email, password);
+
+            if (utente != null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("utente", utente);
+                response.sendRedirect(request.getContextPath() + "/home");
+            } else {
+                request.setAttribute("errore", "Email o password errati.");
+                request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/login");
+        }
     }
 }
