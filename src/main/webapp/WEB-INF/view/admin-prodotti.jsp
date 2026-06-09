@@ -71,7 +71,11 @@
                             <td style="padding: 12px;">${p.categoria}</td>
                             <td style="padding: 12px;">${p.prezzo} €</td>
                             <td style="padding: 12px;">${p.quantita}</td>
-                            <td style="padding: 12px; text-align: center;">
+                            <td style="padding: 12px; text-align: center; display: flex; gap: 15px; justify-content: center;">
+                                <a href="${pageContext.request.contextPath}/admin/prodotti?action=edit&id=${p.id}" 
+                                   style="color: #27ae60; text-decoration: none; font-weight: 700;">
+                                   ✏️ Modifica
+                                </a>
                                 <a href="${pageContext.request.contextPath}/admin/prodotti?action=delete&id=${p.id}" 
                                    style="color: #d32f2f; text-decoration: none; font-weight: 700;"
                                    onclick="return confirm('Sicuro di voler eliminare questa scarpa?');">

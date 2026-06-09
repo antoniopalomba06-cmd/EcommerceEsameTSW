@@ -19,7 +19,6 @@ public class AdminProdottiServlet extends HttpServlet {
     private ProdottoDAO prodottoDAO = new ProdottoDAO();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Controllo Sicurezza: Solo l'admin può passare
         HttpSession session = request.getSession(false);
         if (session == null) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
@@ -31,20 +30,26 @@ public class AdminProdottiServlet extends HttpServlet {
             return;
         }
 
-        // 2. Gestione dei comandi (es. elimina)
         String action = request.getParameter("action");
         try {
-            if (action != null && action.equals("delete")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                prodottoDAO.doDelete(id);
-                response.sendRedirect(request.getContextPath() + "/admin/prodotti");
-                return;
+            if (action != null) {
+                if (action.equals("delete")) {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    prodottoDAO.doDelete(id);
+                    response.sendRedirect(request.getContextPath() + "/admin/prodotti");
+                    return;
+                } else if (action.equals("edit")) {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    ProdottoBean prodotto = prodottoDAO.doRetrieveByKey(id);
+                    request.setAttribute("prodotto", prodotto);
+                    request.getRequestDispatcher("/WEB-INF/view/admin-modifica.jsp").forward(request, response);
+                    return;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // 3. Caricamento prodotti per la tabella
         try {
             List<ProdottoBean> catalogo = prodottoDAO.doRetrieveAll();
             request.setAttribute("prodotti", catalogo);
@@ -56,22 +61,27 @@ public class AdminProdottiServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Gestione inserimento nuovo prodotto dal form
+        String idStr = request.getParameter("id");
         String nome = request.getParameter("nome");
         String descrizione = request.getParameter("descrizione");
         double prezzo = Double.parseDouble(request.getParameter("prezzo"));
         int quantita = Integer.parseInt(request.getParameter("quantita"));
         String categoria = request.getParameter("categoria");
 
-        ProdottoBean nuovoProdotto = new ProdottoBean();
-        nuovoProdotto.setNome(nome);
-        nuovoProdotto.setDescrizione(descrizione);
-        nuovoProdotto.setPrezzo(prezzo);
-        nuovoProdotto.setQuantita(quantita);
-        nuovoProdotto.setCategoria(categoria);
+        ProdottoBean prodotto = new ProdottoBean();
+        prodotto.setNome(nome);
+        prodotto.setDescrizione(descrizione);
+        prodotto.setPrezzo(prezzo);
+        prodotto.setQuantita(quantita);
+        prodotto.setCategoria(categoria);
 
         try {
-            prodottoDAO.doSave(nuovoProdotto);
+            if (idStr != null && !idStr.isEmpty()) {
+                prodotto.setId(Integer.parseInt(idStr));
+                prodottoDAO.doUpdate(prodotto);
+            } else {
+                prodottoDAO.doSave(prodotto);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

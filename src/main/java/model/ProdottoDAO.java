@@ -128,5 +128,21 @@ public class ProdottoDAO {
             ps.executeUpdate();
         }
     }
+    public void doUpdate(ProdottoBean prodotto) throws SQLException {
+        String query = "UPDATE Prodotto SET nome = ?, descrizione = ?, prezzo = ?, quantita = ?, categoria = ? WHERE id = ?";
+        
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setString(1, prodotto.getNome());
+            ps.setString(2, prodotto.getDescrizione());
+            ps.setDouble(3, prodotto.getPrezzo());
+            ps.setInt(4, prodotto.getQuantita());
+            ps.setString(5, prodotto.getCategoria());
+            ps.setInt(6, prodotto.getId());
+            
+            ps.executeUpdate();
+        }
+    }
 }
 

@@ -19,11 +19,9 @@ import model.ProdottoDAO;
 public class CarrelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         
-        // Sincronizziamo la sessione come richiesto dalle slide del prof per evitare problemi con AJAX
         synchronized (session) {
             Carrello carrello = (Carrello) session.getAttribute("carrello");
 
