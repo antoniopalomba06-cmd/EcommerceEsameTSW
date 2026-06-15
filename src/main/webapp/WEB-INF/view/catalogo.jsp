@@ -26,6 +26,7 @@
     <header>
         <h1><a href="${pageContext.request.contextPath}/home" style="color: inherit; text-decoration: none;">UrbanStep</a></h1>
         <nav class="navbar">
+        	<a href="ProfiloServlet">Il Mio Profilo</a>
             <a href="catalogo?categoria=Tutte">Tutte</a>
             <a href="catalogo?categoria=Limited">Limited</a>
             <a href="catalogo?categoria=High">High</a>

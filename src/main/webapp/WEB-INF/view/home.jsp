@@ -17,6 +17,7 @@
 <nav class="navbar">
     <a href="${pageContext.request.contextPath}/catalogo?categoria=Tutte">Catalogo</a>
     <a href="${pageContext.request.contextPath}/carrello" style="font-weight: 700;">🛒 Carrello</a>
+    <a href="ProfiloServlet">Il Mio Profilo</a>
 
     <c:choose>
         <c:when test="${not empty sessionScope.utente}">

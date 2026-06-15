@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -57,5 +59,27 @@ public class OrdineDAO {
             e.printStackTrace();
         }
         return idOrdine;
+    }
+
+    public List<OrdineBean> doRetrieveByUtente(int idUtente) {
+        List<OrdineBean> ordini = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM Ordine WHERE id_utente = ? ORDER BY data_ordine DESC")) {
+            
+            ps.setInt(1, idUtente);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    OrdineBean ordine = new OrdineBean();
+                    ordine.setId(rs.getInt("id"));
+                    ordine.setIdUtente(rs.getInt("id_utente"));
+                    ordine.setDataOrdine(rs.getDate("data_ordine"));
+                    ordine.setTotale(rs.getDouble("totale"));
+                    ordini.add(ordine);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ordini;
     }
 }
