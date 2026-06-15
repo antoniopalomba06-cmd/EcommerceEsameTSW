@@ -29,16 +29,20 @@
         </c:if>
         <form action="${pageContext.request.contextPath}/login" method="POST" class="login-form">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+    <span id="email-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: 600; display: block; margin-top: 5px;"></span>
+</div>
+
+<div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+    <span id="password-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: 600; display: block; margin-top: 5px;"></span>
+</div>
             <button type="submit" class="btn-login">Entra</button>
             <p class="register-link">Non hai un account? <a href="${pageContext.request.contextPath}/registrazione">Registrati qui</a></p>
         </form>
     </div>
+    <script src="${pageContext.request.contextPath}/scripts/validazioni.js"></script>
 </body>
 </html>
