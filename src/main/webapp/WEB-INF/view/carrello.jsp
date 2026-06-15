@@ -86,7 +86,9 @@
                     <button type="submit" style="background-color: transparent; color: #000; border: 1px solid #000; padding: 15px 30px; text-transform: uppercase; cursor: pointer; font-weight: 600; transition: background-color 0.3s;">Svuota Carrello</button>
                 </form>
                 
-                <button class="btn-checkout" style="margin-top: 0;">Procedi al Checkout</button>
+                <form action="CheckoutServlet" method="get">
+    <a href="CheckoutServlet" style="display: inline-block; padding: 10px 20px; background-color: #000; color: #fff; text-decoration: none; border: 1px solid #000; cursor: pointer; text-transform: uppercase; font-weight: bold; font-size: 14px; margin-left: 10px;">PROCEDI AL CHECKOUT</a>
+</form>
             </div>
         <%
             }
