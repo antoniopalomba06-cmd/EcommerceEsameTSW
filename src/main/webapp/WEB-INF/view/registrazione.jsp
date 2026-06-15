@@ -38,6 +38,10 @@
     <input type="email" id="email" name="email" required>
     <span id="email-error" style="color: #d32f2f; font-size: 0.85rem; font-weight: 600; display: block; margin-top: 5px;"></span>
 </div>
+<div class="form-group">
+    <label for="indirizzo">Indirizzo di Spedizione:</label>
+    <input type="text" id="indirizzo" name="indirizzo" required>
+</div>
 
 <div class="form-group">
     <label for="password">Password</label>

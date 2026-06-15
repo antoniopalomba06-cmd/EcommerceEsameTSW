@@ -1,4 +1,5 @@
 package dao;
+
 import model.UtenteBean;
 import model.PasswordUtils;
 
@@ -28,7 +29,7 @@ public class UtenteDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         
-        String insertSQL = "INSERT INTO Utente (nome, cognome, email, password, ruolo) VALUES (?, ?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO Utente (nome, cognome, email, password, ruolo, indirizzo) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             connection = ds.getConnection();
@@ -39,6 +40,7 @@ public class UtenteDAO {
             preparedStatement.setString(3, utente.getEmail());
             preparedStatement.setString(4, PasswordUtils.hashPassword(utente.getPassword()));
             preparedStatement.setString(5, utente.getRuolo());
+            preparedStatement.setString(6, utente.getIndirizzo());
 
             preparedStatement.executeUpdate();
             
@@ -75,6 +77,7 @@ public class UtenteDAO {
                 utente.setEmail(resultSet.getString("email"));
                 utente.setPassword(resultSet.getString("password"));
                 utente.setRuolo(resultSet.getString("ruolo"));
+                utente.setIndirizzo(resultSet.getString("indirizzo"));
             }
         } finally {
             try {

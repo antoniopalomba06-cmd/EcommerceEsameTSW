@@ -63,4 +63,14 @@ public class UtenteBean implements Serializable {
     public void setRuolo(String ruolo) {
         this.ruolo = ruolo;
     }
+    private String indirizzo;
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
 }
+
