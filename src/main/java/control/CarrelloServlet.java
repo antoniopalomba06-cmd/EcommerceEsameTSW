@@ -3,17 +3,16 @@ package control;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import dao.ProdottoDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import model.Carrello;
 import model.CarrelloItem;
 import model.ProdottoBean;
-import model.ProdottoDAO;
 
 @WebServlet("/carrello")
 public class CarrelloServlet extends HttpServlet {

@@ -1,4 +1,6 @@
-package model;
+package dao;
+import model.UtenteBean;
+import model.PasswordUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
