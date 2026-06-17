@@ -61,8 +61,18 @@
             <c:forEach items="${requestScope.prodottiInEvidenza}" var="p" begin="0" end="3">
                 <div class="product-card">
                     <div class="image-wrapper">
-                        <img src="${pageContext.request.contextPath}/images/${p.id}.jpg" alt="${p.nome}" class="product-img">
-                        <img src="${pageContext.request.contextPath}/images/${p.id}_alt.jpg" alt="${p.nome} - Dettaglio" class="product-img-hover">
+                        <c:choose>
+                            <c:when test="${not empty p.base64Image}">
+                                <img src="data:image/jpeg;base64,${p.base64Image}" alt="${p.nome}" class="product-img">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/images/placeholder.jpg" alt="Immagine non disponibile" class="product-img">
+                            </c:otherwise>
+                        </c:choose>
+                        
+                        <c:if test="${not empty p.base64ImageAlt}">
+                            <img src="data:image/jpeg;base64,${p.base64ImageAlt}" alt="${p.nome} - Hover" class="product-img-hover">
+                        </c:if>
                     </div>
                     <div class="product-brand">Nike</div>
                     <div class="product-title">${p.nome}</div>

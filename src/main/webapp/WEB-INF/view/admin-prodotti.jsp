@@ -23,7 +23,7 @@
     <div class="container" style="margin-top: 30px;">
         <div class="login-container" style="max-width: 600px; margin: 0 auto 40px;">
             <h2 class="login-title" style="font-size: 1.5rem;">Aggiungi Nuovo Prodotto</h2>
-            <form action="${pageContext.request.contextPath}/admin/prodotti" method="POST" class="login-form">
+            <form action="${pageContext.request.contextPath}/admin/prodotti" method="POST" enctype="multipart/form-data" class="login-form">
                 <div class="form-group">
                     <label for="nome">Nome Scarpa</label>
                     <input type="text" id="nome" name="nome" required>
@@ -42,9 +42,19 @@
                         <input type="number" id="quantita" name="quantita" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="categoria">Categoria</label>
-                    <input type="text" id="categoria" name="categoria" placeholder="Es. Sneakers, Running" required>
+                <div class="form-group" style="display: flex; gap: 15px;">
+                    <div style="flex: 1;">
+                        <label for="categoria">Categoria</label>
+                        <input type="text" id="categoria" name="categoria" placeholder="Es. Sneakers" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="immagine">Foto Principale</label>
+                        <input type="file" id="immagine" name="immagine" accept="image/*" style="padding-top: 10px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <label for="immagine_alt">Foto Hover</label>
+                        <input type="file" id="immagine_alt" name="immagine_alt" accept="image/*" style="padding-top: 10px;">
+                    </div>
                 </div>
                 <button type="submit" class="btn-login" style="background-color: #d32f2f;">Inserisci nel Catalogo</button>
             </form>
@@ -55,6 +65,7 @@
             <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
                 <thead>
                     <tr style="border-bottom: 2px solid #000; background: #fafafa;">
+                        <th style="padding: 12px;">Foto</th>
                         <th style="padding: 12px;">ID</th>
                         <th style="padding: 12px;">Nome</th>
                         <th style="padding: 12px;">Categoria</th>
@@ -66,12 +77,17 @@
                 <tbody>
                     <c:forEach var="p" items="${prodotti}">
                         <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 12px;">
+                                <c:if test="${not empty p.base64Image}">
+                                    <img src="data:image/jpeg;base64,${p.base64Image}" alt="Foto" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                </c:if>
+                            </td>
                             <td style="padding: 12px;">${p.id}</td>
                             <td style="padding: 12px; font-weight: 600;">${p.nome}</td>
                             <td style="padding: 12px;">${p.categoria}</td>
                             <td style="padding: 12px;">${p.prezzo} €</td>
                             <td style="padding: 12px;">${p.quantita}</td>
-                            <td style="padding: 12px; text-align: center; display: flex; gap: 15px; justify-content: center;">
+                            <td style="padding: 12px; text-align: center; display: flex; gap: 15px; justify-content: center; align-items: center; height: 50px;">
                                 <a href="${pageContext.request.contextPath}/admin/prodotti?action=edit&id=${p.id}" 
                                    style="color: #27ae60; text-decoration: none; font-weight: 700;">
                                    ✏️ Modifica
@@ -86,7 +102,7 @@
                     </c:forEach>
                     <c:if var="vuoto" test="${empty prodotti}">
                         <tr>
-                            <td colspan="6" style="padding: 20px; text-align: center; color: #999;">Nessun prodotto presente nel catalogo.</td>
+                            <td colspan="7" style="padding: 20px; text-align: center; color: #999;">Nessun prodotto presente nel catalogo.</td>
                         </tr>
                     </c:if>
                 </tbody>

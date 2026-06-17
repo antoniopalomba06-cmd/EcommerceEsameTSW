@@ -48,8 +48,15 @@
             %>
                         <div class="product-card">
                             <div class="image-wrapper">
-                                <img src="${pageContext.request.contextPath}/images/<%= p.getId() %>.jpg" alt="<%= p.getNome() %>" class="product-img">
-                                <img src="${pageContext.request.contextPath}/images/<%= p.getId() %>_alt.jpg" alt="<%= p.getNome() %> - Dettaglio" class="product-img-hover">
+                                <% if (p.getBase64Image() != null && !p.getBase64Image().isEmpty()) { %>
+                                    <img src="data:image/jpeg;base64,<%= p.getBase64Image() %>" alt="<%= p.getNome() %>" class="product-img">
+                                <% } else { %>
+                                    <img src="${pageContext.request.contextPath}/images/placeholder.jpg" alt="Immagine non disponibile" class="product-img">
+                                <% } %>
+
+                                <% if (p.getBase64ImageAlt() != null && !p.getBase64ImageAlt().isEmpty()) { %>
+                                    <img src="data:image/jpeg;base64,<%= p.getBase64ImageAlt() %>" alt="<%= p.getNome() %> - Dettaglio" class="product-img-hover">
+                                <% } %>
                             </div>
                             <div class="product-brand">Nike</div>
                             <div class="product-title"><%= p.getNome() %></div>

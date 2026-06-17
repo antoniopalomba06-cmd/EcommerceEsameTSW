@@ -1,20 +1,24 @@
 package control;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
 import dao.ProdottoDAO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import model.ProdottoBean;
 import model.UtenteBean;
 
 @WebServlet("/admin/prodotti")
+@MultipartConfig(maxFileSize = 10485760)
 public class AdminProdottiServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ProdottoDAO prodottoDAO = new ProdottoDAO();
@@ -75,6 +79,18 @@ public class AdminProdottiServlet extends HttpServlet {
         prodotto.setPrezzo(prezzo);
         prodotto.setQuantita(quantita);
         prodotto.setCategoria(categoria);
+
+        Part filePart = request.getPart("immagine");
+        if (filePart != null && filePart.getSize() > 0) {
+            InputStream inputStream = filePart.getInputStream();
+            prodotto.setImmagine(inputStream.readAllBytes());
+        }
+
+        Part filePartAlt = request.getPart("immagine_alt");
+        if (filePartAlt != null && filePartAlt.getSize() > 0) {
+            InputStream inputStreamAlt = filePartAlt.getInputStream();
+            prodotto.setImmagineAlt(inputStreamAlt.readAllBytes());
+        }
 
         try {
             if (idStr != null && !idStr.isEmpty()) {
