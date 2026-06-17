@@ -30,7 +30,7 @@
             <div class="admin-card">
                 <h3>Gestione Ordini</h3>
                 <p>Visualizza e monitora gli ordini effettuati dai clienti.</p>
-                <a href="${pageContext.request.contextPath}/admin/ordini" class="btn-login" style="display: block; text-decoration: none; text-align: center; background-color: #333;">Visualizza Ordini</a>
+                <a href="${pageContext.request.contextPath}/adminOrdini" class="btn-login" style="display: block; text-decoration: none; text-align: center; background-color: #333;">Visualizza Ordini</a>
             </div>
         </div>
     </div>

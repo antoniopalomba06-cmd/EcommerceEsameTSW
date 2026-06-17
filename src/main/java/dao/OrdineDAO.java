@@ -84,4 +84,24 @@ public class OrdineDAO {
         }
         return ordini;
     }
+    public List<OrdineBean> doRetrieveAll() {
+        List<OrdineBean> ordini = new ArrayList<>();
+        try (Connection con = ds.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM Ordine ORDER BY data_ordine DESC");
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                OrdineBean ordine = new OrdineBean();
+                ordine.setId(rs.getInt("id"));
+                ordine.setIdUtente(rs.getInt("id_utente"));
+                ordine.setDataOrdine(rs.getDate("data_ordine"));
+                ordine.setTotale(rs.getDouble("totale"));
+                ordine.setIndirizzoSpedizione(rs.getString("indirizzo_spedizione"));
+                ordini.add(ordine);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ordini;
+    }
 }
