@@ -10,6 +10,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/style.css">
     <script src="${pageContext.request.contextPath}/scripts/main.js" defer></script>
+    <style>
+        .carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+            padding: 30px 0;
+            background-color: #fafafa;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        .slider-track {
+            display: flex;
+            gap: 30px;
+            animation: scrollTrack 20s linear infinite;
+            width: max-content;
+        }
+        .slider-track:hover {
+            animation-play-state: paused;
+        }
+        .slider-item {
+            text-align: center;
+        }
+        .slider-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .slider-item img {
+            width: 240px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .slider-item img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .slider-item p {
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        @keyframes scrollTrack {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -45,42 +96,45 @@
         </div>
     </section>
 
-    <section class="split-section">
-        <div class="split-text">
+<section class="split-section" style="display: flex;">
+        <div class="split-text" style="flex: 1;">
             <h3>Ispirate alla strada.<br>Create per te.</h3>
             <p>Ogni cucitura, ogni colore, ogni dettaglio è pensato per chi vive la città senza compromessi. Esplora le icone del momento e trova il paio che parla di te.</p>
             <a href="${pageContext.request.contextPath}/catalogo?categoria=Tutte" class="btn-light">Esplora il catalogo</a>
         </div>
-        <div class="split-image"></div>
+        <div class="split-image" style="flex: 1; display: flex; min-height: 400px;">
+            <img src="${pageContext.request.contextPath}/images/strada.jpg" alt="UrbanStep Collection" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
     </section>
-
-    <div class="container" style="margin-top: 80px; margin-bottom: 80px;">
-        <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.5rem; letter-spacing: -1px; text-transform: uppercase;">In Evidenza</h2>
-        
-        <div class="product-grid">
-            <c:forEach items="${requestScope.prodottiInEvidenza}" var="p" begin="0" end="3">
-                <div class="product-card">
-                    <div class="image-wrapper">
-                        <c:choose>
-                            <c:when test="${not empty p.base64Image}">
-                                <img src="data:image/jpeg;base64,${p.base64Image}" alt="${p.nome}" class="product-img">
-                            </c:when>
-                            <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/images/placeholder.jpg" alt="Immagine non disponibile" class="product-img">
-                            </c:otherwise>
-                        </c:choose>
-                        
-                        <c:if test="${not empty p.base64ImageAlt}">
-                            <img src="data:image/jpeg;base64,${p.base64ImageAlt}" alt="${p.nome} - Hover" class="product-img-hover">
-                        </c:if>
+    <div class="container" style="margin-top: 80px; margin-bottom: 20px;">
+        <h2 style="text-align: center; font-size: 2.5rem; letter-spacing: -1px; text-transform: uppercase;">In Evidenza</h2>
+    </div>
+    
+    <div class="carousel-wrapper">
+        <div class="slider-track">
+            <c:forEach items="${requestScope.prodottiInEvidenza}" var="p">
+                <c:if test="${not empty p.base64Image}">
+                    <div class="slider-item">
+                        <a href="${pageContext.request.contextPath}/prodotto?id=${p.id}">
+                            <img src="data:image/jpeg;base64,${p.base64Image}" alt="${p.nome}">
+                            <p>${p.nome}</p>
+                        </a>
                     </div>
-                    <div class="product-brand">Nike</div>
-                    <div class="product-title">${p.nome}</div>
-                    <div class="product-price">€ ${p.prezzo}</div>
-                    <button class="btn-add" onclick="aggiungiAlCarrello(${p.id}, this)">Aggiungi al carrello</button>
-                </div>
+                </c:if>
+            </c:forEach>
+            
+            <c:forEach items="${requestScope.prodottiInEvidenza}" var="p">
+                <c:if test="${not empty p.base64Image}">
+                    <div class="slider-item">
+                        <a href="${pageContext.request.contextPath}/prodotto?id=${p.id}">
+                            <img src="data:image/jpeg;base64,${p.base64Image}" alt="${p.nome}">
+                            <p>${p.nome}</p>
+                        </a>
+                    </div>
+                </c:if>
             </c:forEach>
         </div>
     </div>
-</body>
+    
+    <div style="height: 60px;"></div> </body>
 </html>
