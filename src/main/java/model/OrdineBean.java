@@ -9,6 +9,7 @@ public class OrdineBean {
     private int idUtente;
     private Date dataOrdine;
     private double totale;
+    private String indirizzoSpedizione;
     private List<DettaglioOrdineBean> dettagli;
 
     public OrdineBean() {
@@ -23,6 +24,8 @@ public class OrdineBean {
     public void setDataOrdine(Date dataOrdine) { this.dataOrdine = dataOrdine; }
     public double getTotale() { return totale; }
     public void setTotale(double totale) { this.totale = totale; }
+    public String getIndirizzoSpedizione() { return indirizzoSpedizione; }
+    public void setIndirizzoSpedizione(String indirizzoSpedizione) { this.indirizzoSpedizione = indirizzoSpedizione; }
     public List<DettaglioOrdineBean> getDettagli() { return dettagli; }
     public void setDettagli(List<DettaglioOrdineBean> dettagli) { this.dettagli = dettagli; }
     public void addDettaglio(DettaglioOrdineBean dettaglio) { this.dettagli.add(dettaglio); }

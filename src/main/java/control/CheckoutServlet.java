@@ -37,6 +37,7 @@ public class CheckoutServlet extends HttpServlet {
         OrdineBean ordine = new OrdineBean();
         ordine.setIdUtente(utente.getId());
         ordine.setDataOrdine(new Date(System.currentTimeMillis()));
+        ordine.setIndirizzoSpedizione(utente.getIndirizzo());
         
         double totale = 0;
 
@@ -53,11 +54,15 @@ public class CheckoutServlet extends HttpServlet {
         ordine.setTotale(totale);
 
         OrdineDAO ordineDAO = new OrdineDAO();
-        ordineDAO.doSave(ordine);
+        int idGenerato = ordineDAO.doSave(ordine);
 
-        session.removeAttribute("carrello");
-
-        request.getRequestDispatcher("/WEB-INF/view/checkoutSuccess.jsp").forward(request, response);
+        if (idGenerato > 0) {
+            session.removeAttribute("carrello");
+            request.getRequestDispatcher("/WEB-INF/view/checkoutSuccess.jsp").forward(request, response);
+        } else {
+            request.setAttribute("errore", "Errore nel database: Impossibile salvare l'ordine.");
+            request.getRequestDispatcher("/WEB-INF/view/carrello.jsp").forward(request, response);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

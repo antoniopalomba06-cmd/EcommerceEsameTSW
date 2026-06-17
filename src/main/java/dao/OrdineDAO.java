@@ -31,12 +31,13 @@ public class OrdineDAO {
         int idOrdine = -1;
         try (Connection con = ds.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                "INSERT INTO Ordine (id_utente, data_ordine, totale) VALUES (?, ?, ?)",
+                "INSERT INTO Ordine (id_utente, data_ordine, totale, indirizzo_spedizione) VALUES (?, ?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS
             );
             ps.setInt(1, ordine.getIdUtente());
             ps.setDate(2, ordine.getDataOrdine());
             ps.setDouble(3, ordine.getTotale());
+            ps.setString(4, ordine.getIndirizzoSpedizione());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -74,6 +75,7 @@ public class OrdineDAO {
                     ordine.setIdUtente(rs.getInt("id_utente"));
                     ordine.setDataOrdine(rs.getDate("data_ordine"));
                     ordine.setTotale(rs.getDouble("totale"));
+                    ordine.setIndirizzoSpedizione(rs.getString("indirizzo_spedizione"));
                     ordini.add(ordine);
                 }
             }

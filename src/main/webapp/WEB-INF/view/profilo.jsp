@@ -10,12 +10,14 @@
 <body style="font-family: sans-serif; background-color: #f8f9fa; margin: 0; padding: 0;">
 
     <header style="background-color: #fff; padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h1>Benvenuto, ${utente.nome}!</h1>
-        <nav>
-    <a href="${pageContext.request.contextPath}/HomeServlet">Home</a>
-    <a href="${pageContext.request.contextPath}/CatalogoServlet">Catalogo</a>
-    <a href="${pageContext.request.contextPath}/LogoutServlet">Logout</a>
-</nav>
+        <h1 style="margin-bottom: 15px;">Benvenuto, ${utente.nome}!</h1>
+        <nav style="display: flex; justify-content: center; gap: 20px;">
+            <a href="${pageContext.request.contextPath}/home" style="text-decoration: none; color: #333; font-weight: 600; padding: 8px 16px; border: 2px solid #333; border-radius: 4px;">Home</a>
+            
+            <a href="${pageContext.request.contextPath}/catalogo?categoria=Tutte" style="text-decoration: none; color: #333; font-weight: 600; padding: 8px 16px; border: 2px solid #333; border-radius: 4px;">Catalogo</a>
+            
+            <a href="${pageContext.request.contextPath}/logout" style="text-decoration: none; color: #fff; background-color: #d32f2f; font-weight: 600; padding: 8px 16px; border: 2px solid #d32f2f; border-radius: 4px;">Logout</a>
+        </nav>
     </header>
 
     <main style="padding: 40px; max-width: 800px; margin: 0 auto;">

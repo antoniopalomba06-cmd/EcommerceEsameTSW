@@ -14,26 +14,26 @@
 <body>
     <header>
         <h1><a href="${pageContext.request.contextPath}/home" style="color: inherit; text-decoration: none;">UrbanStep</a></h1>
-<nav class="navbar">
-    <a href="${pageContext.request.contextPath}/catalogo?categoria=Tutte">Catalogo</a>
-    <a href="${pageContext.request.contextPath}/carrello" style="font-weight: 700;">🛒 Carrello</a>
-    <a href="ProfiloServlet">Il Mio Profilo</a>
+        <nav class="navbar">
+            <a href="${pageContext.request.contextPath}/catalogo?categoria=Tutte">Catalogo</a>
+            <a href="${pageContext.request.contextPath}/carrello" style="font-weight: 700;">🛒 Carrello</a>
 
-    <c:choose>
-        <c:when test="${not empty sessionScope.utente}">
-            <span style="color: #555; font-size: 0.9rem; text-transform: uppercase; font-weight: 600; align-self: center;">
-                👤 Ciao, ${sessionScope.utente.nome}!
-            </span>
-            <c:if test="${sessionScope.utente.ruolo == 'admin'}">
-                <a href="${pageContext.request.contextPath}/admin" style="color: #d32f2f; font-weight: 700;">⚙️ Admin</a>
-            </c:if>
-            <a href="${pageContext.request.contextPath}/logout">Esci</a>
-        </c:when>
-        <c:otherwise>
-            <a href="${pageContext.request.contextPath}/login" class="btn-nav-login">Login / Registrati</a>
-        </c:otherwise>
-    </c:choose>
-</nav>
+            <c:choose>
+                <c:when test="${not empty sessionScope.utente}">
+                    <a href="${pageContext.request.contextPath}/ProfiloServlet">Il Mio Profilo</a>
+                    <span style="color: #555; font-size: 0.9rem; text-transform: uppercase; font-weight: 600; align-self: center;">
+                        👤 Ciao, ${sessionScope.utente.nome}!
+                    </span>
+                    <c:if test="${sessionScope.utente.ruolo == 'admin'}">
+                        <a href="${pageContext.request.contextPath}/admin" style="color: #d32f2f; font-weight: 700;">⚙️ Admin</a>
+                    </c:if>
+                    <a href="${pageContext.request.contextPath}/logout">Esci</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/login" class="btn-nav-login">Login / Registrati</a>
+                </c:otherwise>
+            </c:choose>
+        </nav>
     </header>
 
     <section class="parallax-hero">
