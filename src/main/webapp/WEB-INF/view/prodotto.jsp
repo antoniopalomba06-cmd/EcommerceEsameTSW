@@ -4,6 +4,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UrbanStep | ${prodotto.nome}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -65,7 +66,6 @@
         }
         .slider-arrow.prev { left: 15px; }
         .slider-arrow.next { right: 15px; }
-        
         .product-info {
             flex: 1;
             display: flex;
@@ -122,10 +122,23 @@
             from { opacity: 0.8; }
             to { opacity: 1; }
         }
+        @media screen and (max-width: 768px) {
+            .product-detail-container {
+                flex-direction: column;
+                margin: 20px auto;
+                gap: 30px;
+            }
+            .product-gallery {
+                width: 100%;
+                aspect-ratio: auto;
+            }
+            .product-info h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
-
     <header>
         <h1><a href="${pageContext.request.contextPath}/home" style="color: inherit; text-decoration: none;">UrbanStep</a></h1>
         <nav class="navbar">
@@ -144,7 +157,6 @@
                     <img src="${pageContext.request.contextPath}/images/placeholder.jpg" alt="Nessuna immagine" class="slide-img active">
                 </c:otherwise>
             </c:choose>
-            
             <c:if test="${not empty prodotto.base64ImageAlt}">
                 <img src="data:image/jpeg;base64,${prodotto.base64ImageAlt}" alt="${prodotto.nome} - Dettaglio" class="slide-img">
                 <button class="slider-arrow prev" onclick="moveSlide(-1)">&#10094;</button>
@@ -189,20 +201,15 @@
     <script>
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide-img');
-
         function moveSlide(n) {
             if (slides.length <= 1) return;
-            
             slides[currentSlideIndex].classList.remove('active');
-            
             currentSlideIndex += n;
-            
             if (currentSlideIndex >= slides.length) {
                 currentSlideIndex = 0;
             } else if (currentSlideIndex < 0) {
                 currentSlideIndex = slides.length - 1;
             }
-            
             slides[currentSlideIndex].classList.add('active');
         }
     </script>

@@ -4,6 +4,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UrbanStep | Storico Vendite Globale</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -35,13 +36,19 @@
             letter-spacing: -1px;
             color: #333;
         }
+        .table-responsive-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
         .admin-table {
             width: 100%;
+            min-width: 700px;
             border-collapse: collapse;
             background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-radius: 8px;
-            overflow: hidden;
         }
         .admin-table th, .admin-table td {
             padding: 20px;
@@ -88,35 +95,37 @@
         
         <h2 class="page-title">Storico Vendite Globale</h2>
         
-        <table class="admin-table">
-            <thead>
-                <tr>
-                    <th>ID Ordine</th>
-                    <th>ID Utente</th>
-                    <th>Data Acquisto</th>
-                    <th>Indirizzo Spedizione</th>
-                    <th>Incasso Totale</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:choose>
-                    <c:when test="${empty ordini}">
-                        <tr><td colspan="5" style="text-align: center; padding: 40px; color: #777;">Nessun ordine presente nel database.</td></tr>
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach items="${ordini}" var="o">
-                            <tr>
-                                <td class="badge-id">#${o.id}</td>
-                                <td style="font-weight: 500;">Utente ${o.idUtente}</td>
-                                <td>${o.dataOrdine}</td>
-                                <td style="color: #666;">${o.indirizzoSpedizione}</td>
-                                <td class="price-total">&euro; ${o.totale}</td>
-                            </tr>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
-            </tbody>
-        </table>
+        <div class="table-responsive-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID Ordine</th>
+                        <th>ID Utente</th>
+                        <th>Data Acquisto</th>
+                        <th>Indirizzo Spedizione</th>
+                        <th>Incasso Totale</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:choose>
+                        <c:when test="${empty ordini}">
+                            <tr><td colspan="5" style="text-align: center; padding: 40px; color: #777;">Nessun ordine presente nel database.</td></tr>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${ordini}" var="o">
+                                <tr>
+                                    <td class="badge-id">#${o.id}</td>
+                                    <td style="font-weight: 500;">Utente ${o.idUtente}</td>
+                                    <td>${o.dataOrdine}</td>
+                                    <td style="color: #666;">${o.indirizzoSpedizione}</td>
+                                    <td class="price-total">&euro; ${o.totale}</td>
+                                </tr>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </body>
