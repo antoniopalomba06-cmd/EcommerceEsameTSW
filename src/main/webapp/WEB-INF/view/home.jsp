@@ -14,7 +14,7 @@
         .carousel-wrapper {
             width: 100%;
             overflow: hidden;
-            padding: 30px 0;
+            padding: 40px 0;
             background-color: #fafafa;
             border-top: 1px solid #eee;
             border-bottom: 1px solid #eee;
@@ -24,12 +24,23 @@
             gap: 30px;
             animation: scrollTrack 20s linear infinite;
             width: max-content;
+            padding: 15px 0;
         }
         .slider-track:hover {
             animation-play-state: paused;
         }
         .slider-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             text-align: center;
+            transition: all 0.3s ease;
+            width: 260px;
+        }
+        .slider-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
         }
         .slider-item a {
             text-decoration: none;
@@ -37,24 +48,19 @@
             display: block;
         }
         .slider-item img {
-            width: 240px;
-            height: 240px;
-            object-fit: cover;
-            border-radius: 12px;
-            background: #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-        }
-        .slider-item img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            background: transparent;
         }
         .slider-item p {
-            margin-top: 15px;
-            font-weight: 600;
-            font-size: 1rem;
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.05rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            color: #111;
         }
         @keyframes scrollTrack {
             0% { transform: translateX(0); }
@@ -62,7 +68,7 @@
         }
     </style>
 </head>
-<body>
+<body style="margin: 0; padding: 0; overflow-x: hidden;">
     <header>
         <h1><a href="${pageContext.request.contextPath}/home" style="color: inherit; text-decoration: none;">UrbanStep</a></h1>
         <nav class="navbar">
@@ -96,7 +102,7 @@
         </div>
     </section>
 
-<section class="split-section" style="display: flex;">
+    <section class="split-section" style="display: flex;">
         <div class="split-text" style="flex: 1;">
             <h3>Ispirate alla strada.<br>Create per te.</h3>
             <p>Ogni cucitura, ogni colore, ogni dettaglio è pensato per chi vive la città senza compromessi. Esplora le icone del momento e trova il paio che parla di te.</p>
@@ -106,6 +112,7 @@
             <img src="${pageContext.request.contextPath}/images/strada.jpg" alt="UrbanStep Collection" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </section>
+
     <div class="container" style="margin-top: 80px; margin-bottom: 20px;">
         <h2 style="text-align: center; font-size: 2.5rem; letter-spacing: -1px; text-transform: uppercase;">In Evidenza</h2>
     </div>
@@ -136,5 +143,7 @@
         </div>
     </div>
     
-    <div style="height: 60px;"></div> </body>
+    <div style="height: 60px;"></div>
+
+</body>
 </html>

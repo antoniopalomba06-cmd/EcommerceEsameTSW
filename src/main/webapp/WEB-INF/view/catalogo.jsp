@@ -47,21 +47,24 @@
                         ProdottoBean p = (ProdottoBean) it.next();
             %>
                         <div class="product-card">
-                            <div class="image-wrapper">
-                                <% if (p.getBase64Image() != null && !p.getBase64Image().isEmpty()) { %>
-                                    <img src="data:image/jpeg;base64,<%= p.getBase64Image() %>" alt="<%= p.getNome() %>" class="product-img">
-                                <% } else { %>
-                                    <img src="${pageContext.request.contextPath}/images/placeholder.jpg" alt="Immagine non disponibile" class="product-img">
-                                <% } %>
+                            <a href="prodotto?id=<%= p.getId() %>" style="text-decoration: none; color: inherit; display: block;">
+                                <div class="image-wrapper">
+                                    <% if (p.getBase64Image() != null && !p.getBase64Image().isEmpty()) { %>
+                                        <img src="data:image/jpeg;base64,<%= p.getBase64Image() %>" alt="<%= p.getNome() %>" class="product-img">
+                                    <% } else { %>
+                                        <img src="${pageContext.request.contextPath}/images/placeholder.jpg" alt="Immagine non disponibile" class="product-img">
+                                    <% } %>
 
-                                <% if (p.getBase64ImageAlt() != null && !p.getBase64ImageAlt().isEmpty()) { %>
-                                    <img src="data:image/jpeg;base64,<%= p.getBase64ImageAlt() %>" alt="<%= p.getNome() %> - Dettaglio" class="product-img-hover">
-                                <% } %>
-                            </div>
-                            <div class="product-brand">Nike</div>
-                            <div class="product-title"><%= p.getNome() %></div>
+                                    <% if (p.getBase64ImageAlt() != null && !p.getBase64ImageAlt().isEmpty()) { %>
+                                        <img src="data:image/jpeg;base64,<%= p.getBase64ImageAlt() %>" alt="<%= p.getNome() %> - Dettaglio" class="product-img-hover">
+                                    <% } %>
+                                </div>
+                                <div class="product-brand">Nike</div>
+                                <div class="product-title"><%= p.getNome() %></div>
+                            </a>
                             <div class="product-price">€ <%= String.format("%.2f", p.getPrezzo()) %></div>
-                            <button class="btn-add" onclick="aggiungiAlCarrello(<%= p.getId() %>, this)">Aggiungi al carrello</button>
+                            
+                            <button class="btn-add" onclick="window.location.href='prodotto?id=<%= p.getId() %>'">Scegli Taglia</button>
                         </div>
             <%
                     }
